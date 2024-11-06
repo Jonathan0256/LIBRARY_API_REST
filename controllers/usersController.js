@@ -92,7 +92,6 @@ export const login = (req, res) => {
     .createHash("sha256")
     .update(password)
     .digest("hex");
-
   if (user.password !== passwordEncryption) {
     return res.status(401).json({ error: "Credencials incorrectes" });
   }
