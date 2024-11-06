@@ -10,5 +10,5 @@ router.post("/login", login);
 
 //Books
 
-router.get("/books", authenticateToken, getBooks);
+router.get("/books", getBooks);
 export default router;

@@ -3,8 +3,8 @@ POST http://localhost:3000/api/v1/register
 Content-Type: application/json
 
 {
-  "username": "testUser2",
-  "password": "testPassword2"
+  "username": "testUser3",
+  "password": "testPassword3"
 }
 
 ### Login d'usuari
@@ -12,11 +12,11 @@ POST http://localhost:3000/api/v1/login
 Content-Type: application/json
 
 {
-  "username": "testUser2",
-  "password": "testPassword2"
+  "username": "testUser3",
+  "password": "testPassword3"
 }
 
-
-### Obtenir libros (token)
+### Obtenir llibres (token)
 GET http://localhost:3000/api/v1/books
-Authorization: Bearer {eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMiIsImlhdCI6MTczMDkxNzk5MSwiZXhwIjoxNzMwOTE4NTkxfQ.nmP_2rD0vTWUUuRQWWRl4j2k9H2t917MYvnTWZwGVw8}
+
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMDkyNzgxNCwiZXhwIjoxNzMwOTI4NDE0fQ.iuVvxz9PGU2mLQU-AiryXeOdf3kUflUvSNUUqtTAPZo
