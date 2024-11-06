@@ -8,10 +8,10 @@ Content-Type: application/json
 }
 
 ### Login d'usuari
-POST http://localhost:3000/login
+POST http://localhost:3000/api/v1/auth/login
 Content-Type: application/json
 
 {
   "username": "testUser",
-  "password": "examplePassword"
+  "password": "testPassword"
 }

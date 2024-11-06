@@ -30,6 +30,7 @@ if (!SECRET_KEY) {
   process.exit(1);
 }
 
+//Apartat register
 export const register = (req, res) => {
   const { username, password } = req.body;
 
@@ -65,4 +66,37 @@ export const register = (req, res) => {
   saveUsers(usersFile, users);
 
   res.status(201).json({ message: "Usuari registrart correctament" });
+};
+
+//Apartat login
+
+export const login = (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res
+      .status(400)
+      .json({ error: "Username i password son obligatoris" });
+  }
+
+  const usersFile = "./models/users.json";
+  const users = loadUsers(usersFile);
+
+  const user = users.find((c) => c.username === username);
+
+  if (!user) {
+    return res.status(401).json({ error: "Credencials incorrectes" });
+  }
+
+  const passwordEncryption = crypto
+    .createHash("sha256")
+    .update(password)
+    .digest("hex");
+
+  if (user.password !== passwordEncryption) {
+    return res.status(401).json({ error: "Credencials incorrectes" });
+  }
+  const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: "10m" });
+
+  res.json({ token });
 };
