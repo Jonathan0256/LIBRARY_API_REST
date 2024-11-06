@@ -17,6 +17,26 @@ const saveBooks = (data) => {
   fs.writeFileSync(BOOKS_FILE, JSON.stringify(data));
 };
 
-export const getBooks = (req, res) => {};
+export const getBooks = (req, res) => {
+  try {
+    const { author } = req.query;
+    const data = loadBooks();
+
+    let books = data.books;
+
+    if (author) {
+      books = books.filter((book) =>
+        book.author.toLowerCase().includes(author.toLowerCase())
+      );
+    }
+    books.sort((a, b) => a.title.localeCompare(b.title));
+
+    res.json(books);
+  } catch (err) {
+    res
+      .sendStatus(500)
+      .json({ error: "Error al intentar obtenir els llibres" });
+  }
+};
 
 export const createBook = (req, res) => {};
