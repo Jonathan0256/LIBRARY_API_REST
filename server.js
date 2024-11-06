@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import userRoutes from "./routes/routes.js";
+import { authenticateToken } from "./middleware/auth.js";
 dotenv.config();
 const app = express();
 const PORT = 3000;
