@@ -1,6 +1,6 @@
 import express from "express";
 import { register, login } from "../controllers/usersController.js";
-import { getBooks } from "../controllers/booksController.js";
+import { getBooks, addBooks } from "../controllers/booksController.js";
 import { authenticateToken } from "../middleware/auth.js";
 const router = express.Router();
 
@@ -10,5 +10,6 @@ router.post("/login", login);
 
 //Books
 
-router.get("/books", getBooks);
+router.get("/books", authenticateToken, getBooks);
+router.post("/books", authenticateToken, addBooks);
 export default router;

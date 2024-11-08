@@ -18,5 +18,21 @@ Content-Type: application/json
 
 ### Obtenir llibres (token)
 GET http://localhost:3000/api/v1/books
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTA4NzExNSwiZXhwIjoxNzMxMDg3NzE1fQ.FBL8J8ZnL18d6ByJyfut2ubsoi-7XgVhEnXXrdbj6Bw
 
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTAwMTQ2MiwiZXhwIjoxNzMxMDAyMDYyfQ.5OUs4Mvp8BC_wlxthv0nh7V3iIOHgySPlZrIHV78UY4
+### Afegir un nou llibre
+
+POST http://localhost:3000/api/v1/books
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTA4NzgwNSwiZXhwIjoxNzMxMDg4NDA1fQ.Q3V6X11RzTbEkzOVRpxXv6LTxP7v78NSBgB3gbxDq5A
+
+{
+  "title": "Si això és un home",
+  "author": "Primo Levi",
+  "publishedYear": 1947,
+  "genres": [
+    "Real-Life story",
+    "Drama"
+  ],
+  "summary": "Primo Levi's If This Is a Man is a memoir of his survival in Auschwitz, detailing the dehumanizing horrors of the Holocaust and the resilience needed to endure them."
+}

@@ -1,5 +1,5 @@
 import fs from "fs";
-import { uuid } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 const BOOKS_FILE = "./models/books.json";
 
@@ -8,8 +8,17 @@ const loadBooks = () => {
     const data = fs.readFileSync(BOOKS_FILE, "utf8");
     return JSON.parse(data);
   } catch (error) {
-    console.error("Error carreagant els llibres:", error);
-    throw new Error("Error al cargar els llibres");
+    console.error("Error carregant els llibres:", error);
+    throw new Error("Error al carregar els llibres");
+  }
+};
+
+const saveBooks = (data) => {
+  try {
+    fs.writeFileSync(BOOKS_FILE, JSON.stringify(data), "utf8");
+  } catch (error) {
+    console.error("Error guardant els llibres:", error);
+    throw new Error("Error al guardar els llibres");
   }
 };
 
@@ -52,32 +61,34 @@ export const addBooks = (req, res) => {
 
     if (!title || !author || !publishedYear || !genres || !summary) {
       return res
-        .send(402)
+        .status(402)
         .json({ error: "Tots els camps han d'estar omplerts" });
     } else if (
       typeof title !== "string" ||
       typeof author !== "string" ||
-      typeof genres !== "string" ||
       typeof summary !== "string" ||
       !Number.isInteger(publishedYear)
     ) {
-      return res.send(401).json({
+      return res.status(401).json({
         error: "L'any de publicació ha de ser un enter, la resta string",
       });
-    } else {
-      const data = loadBooks();
-      const userBook = {
-        id: uuid,
-        title: title,
-        author: author,
-        publishedYear: publishedYear,
-        genres: genres,
-        summary: summary,
-      };
-
-      data.push(userBook);
     }
-    return res.send(201).json((message = "Llibre afegit correctament"));
+
+    const data = loadBooks();
+    const userBook = {
+      id: uuidv4(),
+      title,
+      author,
+      publishedYear,
+      genres,
+      summary,
+    };
+
+    data.books.push(userBook);
+
+    saveBooks(data);
+
+    return res.status(201).json({ message: "Llibre afegit correctament" });
   } catch (err) {
     console.error("Error: ", err);
     return res.status(500).json({
