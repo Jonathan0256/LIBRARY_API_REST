@@ -1,4 +1,5 @@
 import fs from "fs";
+import { uuid } from "uuid";
 
 const BOOKS_FILE = "./models/books.json";
 
@@ -41,6 +42,33 @@ export const getBooks = (req, res) => {
     return res.status(500).json({
       error: "Error al obtenir els llibres",
       details: error.message,
+    });
+  }
+};
+
+export const addBooks = (req, res) => {
+  try {
+    const { title, author, publishedYear, genres, summary } = req.body;
+
+    if (!title || !author || !publishedYear || !genres || !summary) {
+      return res
+        .send(402)
+        .json({ error: "Tots els camps han d'estar omplerts" });
+    } else if ((title = hi)) {
+    }
+    const data = loadBooks();
+    const userBook = {
+      id: uuid,
+      title: title,
+      author: author,
+      publishedYear: publishedYear,
+      genres: genres,
+      summary: summary,
+    };
+  } catch (err) {
+    console.error("Error: ", err);
+    return res.status(500).json({
+      error: `${err}`,
     });
   }
 };
