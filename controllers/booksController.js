@@ -54,17 +54,30 @@ export const addBooks = (req, res) => {
       return res
         .send(402)
         .json({ error: "Tots els camps han d'estar omplerts" });
-    } else if ((title = hi)) {
+    } else if (
+      typeof title !== "string" ||
+      typeof author !== "string" ||
+      typeof genres !== "string" ||
+      typeof summary !== "string" ||
+      !Number.isInteger(publishedYear)
+    ) {
+      return res.send(401).json({
+        error: "L'any de publicació ha de ser un enter, la resta string",
+      });
+    } else {
+      const data = loadBooks();
+      const userBook = {
+        id: uuid,
+        title: title,
+        author: author,
+        publishedYear: publishedYear,
+        genres: genres,
+        summary: summary,
+      };
+
+      data.push(userBook);
     }
-    const data = loadBooks();
-    const userBook = {
-      id: uuid,
-      title: title,
-      author: author,
-      publishedYear: publishedYear,
-      genres: genres,
-      summary: summary,
-    };
+    return res.send(201).json((message = "Llibre afegit correctament"));
   } catch (err) {
     console.error("Error: ", err);
     return res.status(500).json({
