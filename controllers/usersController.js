@@ -95,7 +95,7 @@ export const login = (req, res) => {
   if (user.password !== passwordEncryption) {
     return res.status(401).json({ error: "Credencials incorrectes" });
   }
-  const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: "10m" });
+  const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: "30m" });
 
   res.json({ token });
 };

@@ -2,3 +2,4 @@ node_modules
 .env
 models/users.json
 api.log
+request.rest

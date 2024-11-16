@@ -15,7 +15,8 @@ const loadBooks = () => {
 
 const saveBooks = (data) => {
   try {
-    fs.writeFileSync(BOOKS_FILE, JSON.stringify(data), "utf8");
+    data.updatedAt = new Date().toISOString();
+    fs.writeFileSync(BOOKS_FILE, JSON.stringify(data, null, 2), "utf8");
   } catch (error) {
     console.error("Error guardant els llibres:", error);
     throw new Error("Error al guardar els llibres");
@@ -38,10 +39,10 @@ export const getBooks = (req, res) => {
     const { author } = req.query;
     if (author) {
       books = books.filter((book) =>
-        book.author?.toLowerCase().includes(author.toLowerCase())
+        book.details.author?.toLowerCase().includes(author.toLowerCase())
       );
     }
-    books.sort((a, b) => a.title?.localeCompare(b.title || ""));
+    books.sort((a, b) => a.details.title?.localeCompare(b.details.title || ""));
 
     return res.status(200).json({
       books,
@@ -75,24 +76,88 @@ export const addBooks = (req, res) => {
     }
 
     const data = loadBooks();
-    const userBook = {
+    const newBook = {
       id: uuidv4(),
-      title,
-      author,
-      publishedYear,
-      genres,
-      summary,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      details: {
+        title,
+        author,
+        publishedYear,
+        genres,
+        summary,
+      },
     };
-
-    data.books.push(userBook);
-
+    data.books.push(newBook);
     saveBooks(data);
-
     return res.status(201).json({ message: "Llibre afegit correctament" });
   } catch (err) {
     console.error("Error: ", err);
     return res.status(500).json({
       error: `${err}`,
+    });
+  }
+};
+
+export const updateBook = (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, author, publishedYear, genres, summary } = req.body;
+
+    if (!title || !author || !publishedYear || !genres || !summary) {
+      return res
+        .status(400)
+        .json({ error: "Tots els camps han d'estar omplerts" });
+    }
+
+    const data = loadBooks();
+    const bookIndex = data.books.findIndex((book) => book.id === id);
+
+    if (bookIndex === -1) {
+      return res.status(404).json({ error: "Llibre no trobat" });
+    }
+
+    data.books[bookIndex] = {
+      ...data.books[bookIndex],
+      updatedAt: new Date().toISOString(),
+      details: {
+        title,
+        author,
+        publishedYear,
+        genres,
+        summary,
+      },
+    };
+
+    saveBooks(data);
+    return res.status(200).json({ message: "Llibre actualitzat correctament" });
+  } catch (error) {
+    console.error("Error: ", error);
+    return res.status(500).json({
+      error: "Error al actualitzar el llibre",
+      details: error.message,
+    });
+  }
+};
+
+export const deleteBook = (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = loadBooks();
+    const bookIndex = data.books.findIndex((book) => book.id === id);
+
+    if (bookIndex === -1) {
+      return res.status(404).json({ error: "Llibre no trobat" });
+    }
+
+    data.books.splice(bookIndex, 1);
+    saveBooks(data);
+    return res.status(200).json({ message: "Llibre eliminat correctament" });
+  } catch (error) {
+    console.error("Error: ", error);
+    return res.status(500).json({
+      error: "Error al eliminar el llibre",
+      details: error.message,
     });
   }
 };

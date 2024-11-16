@@ -46,12 +46,5 @@
             "genres": ["Adventure", "Classic"],
             "summary": "A tale of obsession and revenge as Captain Ahab hunts the elusive white whale, Moby Dick."
         }
-    }, {
-        "id": "883032ce-9613-46a9-b7d1-644a7c1e506c",
-        "title": "Si això és un home",
-        "author": "Primo Levi",
-        "publishedYear": 1947,
-        "genres": ["Real-Life story", "Drama"],
-        "summary": "Primo Levi's If This Is a Man is a memoir of his survival in Auschwitz, detailing the dehumanizing horrors of the Holocaust and the resilience needed to endure them."
     }]
 }

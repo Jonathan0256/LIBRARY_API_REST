@@ -6,6 +6,16 @@ Content-Type: application/json
   "username": "testUser3",
   "password": "testPassword3"
 }
+### Us sanitizer.js
+
+POST http://localhost:3000/api/v1/register
+Content-Type: application/json
+
+{
+  "username": "   test    User 2  <script>alert('hacked!')</script>   ",
+  "password": "1234567890",
+  "email": "  test@gmail.com    <script>script()</script>  "
+}
 
 ### Login d'usuari
 POST http://localhost:3000/api/v1/login
@@ -18,16 +28,15 @@ Content-Type: application/json
 
 ### Obtenir llibres (token)
 GET http://localhost:3000/api/v1/books
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTA4NzExNSwiZXhwIjoxNzMxMDg3NzE1fQ.FBL8J8ZnL18d6ByJyfut2ubsoi-7XgVhEnXXrdbj6Bw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTY2NDIyMywiZXhwIjoxNzMxNjY2MDIzfQ.Xv2l_TKeUM03SbdUpgLGJ5QZkC1eqolufeN-ND_naz0
 
 ### Afegir un nou llibre
-
 POST http://localhost:3000/api/v1/books
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTA4NzgwNSwiZXhwIjoxNzMxMDg4NDA1fQ.Q3V6X11RzTbEkzOVRpxXv6LTxP7v78NSBgB3gbxDq5A
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTUyNDk0MiwiZXhwIjoxNzMxNTI2NzQyfQ.iq7hB1fqCmptHnXdKlSObUMidue3TSoaxVQ03Tw-fSI
 
 {
-  "title": "Si això és un home",
+  "title": "Llibre exemple 2",
   "author": "Primo Levi",
   "publishedYear": 1947,
   "genres": [
@@ -36,3 +45,77 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc
   ],
   "summary": "Primo Levi's If This Is a Man is a memoir of his survival in Auschwitz, detailing the dehumanizing horrors of the Holocaust and the resilience needed to endure them."
 }
+### Fer update llibre
+PUT http://localhost:3000/api/v1/books/8ef2a6b5-c79c-4c3f-b14d-5c7f759dbade
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTUyNDk0MiwiZXhwIjoxNzMxNTI2NzQyfQ.iq7hB1fqCmptHnXdKlSObUMidue3TSoaxVQ03Tw-fSI
+
+{
+    "title": "Nout títol",
+    "author": "Nou autor",
+    "publishedYear": 2024,
+    "genres": ["Ficció", "Aventura"],
+    "summary": "Nova descripció del llibre"
+}
+### Eliminar un llibre
+DELETE http://localhost:3000/api/v1/books/8ef2a6b5-c79c-4c3f-b14d-5c7f759dbade
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTUwMzk5MSwiZXhwIjoxNzMxNTA0NTkxfQ.TgtlAeL6YESU8VulXOj2Y9pTVjwh6GzVdSQSQeeTCR8
+
+### Obtenir totes les llibrerires
+GET http://localhost:3000/api/v1/bookstores
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTUwNDYxNSwiZXhwIjoxNzMxNTA1MjE1fQ.VWVh6_eDjk0sbzyaZcnmDOdJgYehOC4tJRl5liLPoYo
+
+### afegir nova llibreria
+POST http://localhost:3000/api/v1/bookstores
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTUwNDYxNSwiZXhwIjoxNzMxNTA1MjE1fQ.VWVh6_eDjk0sbzyaZcnmDOdJgYehOC4tJRl5liLPoYo
+
+{
+    "name": "Llibreria TEST",
+    "address": "Carrer TEST, 145"
+}
+
+### Fer update inventari llibreria
+PUT http://localhost:3000/api/v1/bookstores/d2e38b5f-7d7b-44c8-8a1b-86b17918dfb5/inventory
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTUwNDYxNSwiZXhwIjoxNzMxNTA1MjE1fQ.VWVh6_eDjk0sbzyaZcnmDOdJgYehOC4tJRl5liLPoYo
+
+{
+    "bookId": "2f1e9f8b-a1b1-44c3-8e93-53c8e4c2b3a5",
+    "quantity": 10
+}
+
+### Eliminar una llibrería
+DELETE http://localhost:3000/api/v1/bookstores/d2e38b5f-7d7b-44c8-8a1b-86b17918dfb5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTUwNDYxNSwiZXhwIjoxNzMxNTA1MjE1fQ.VWVh6_eDjk0sbzyaZcnmDOdJgYehOC4tJRl5liLPoYo
+ssdfjjksd  
+
+//Sales
+### Obtenir vendes totals d'un llibre
+GET http://localhost:3000/api/v1/sales
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTY2NDIyMywiZXhwIjoxNzMxNjY2MDIzfQ.Xv2l_TKeUM03SbdUpgLGJ5QZkC1eqolufeN-ND_naz0
+
+### Afegir una nova venda
+POST http://localhost:3000/api/v1/sales
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTY2NDIyMywiZXhwIjoxNzMxNjY2MDIzfQ.Xv2l_TKeUM03SbdUpgLGJ5QZkC1eqolufeN-ND_naz0
+
+{
+    "bookstoreId": "c5a80b8c-bf8c-4c84-b4e7-11e7a79b4a64",
+    "books": [
+        {
+            "bookId": "d1f7ee82-f42c-4a60-b557-5c12e7a1a01e",
+            "quantity": 2
+        },
+        {
+            "bookId": "b27e3087-43ee-4b0a-910b-bc1da3a1c74e",
+            "quantity": 1
+        }
+    ],
+    "totalPrice": 41.47,
+    "discountPercentage": 5
+}
+
+### Obtenir exemplars venuts d'un llibre
+GET http://localhost:3000/api/v1/books/b27e3087-43ee-4b0a-910b-bc1da3a1c74e/sales
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTY2NjkzMiwiZXhwIjoxNzMxNjY4NzMyfQ.nKn32SesXwviMGa077Fk7s8dhDwilh6QxXefUKhyC68
