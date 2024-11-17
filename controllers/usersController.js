@@ -1,10 +1,9 @@
 import jwt from "jsonwebtoken";
 import fs from "fs";
 import crypto from "crypto";
-import dotenv from "dotenv";
+import config from "../config.js";
 
-dotenv.config();
-const SECRET_KEY = process.env.SECRET_KEY;
+const SECRET_KEY = config.server.env;
 
 //Functions
 const saveUsers = (file, users) => {

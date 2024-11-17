@@ -28,7 +28,7 @@ Content-Type: application/json
 
 ### Obtenir llibres (token)
 GET http://localhost:3000/api/v1/books
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTY2NDIyMywiZXhwIjoxNzMxNjY2MDIzfQ.Xv2l_TKeUM03SbdUpgLGJ5QZkC1eqolufeN-ND_naz0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMyIsImlhdCI6MTczMTg2NDM5OSwiZXhwIjoxNzMxODY2MTk5fQ.2607Fu2aMSa1qlOe9tF36Ttdm_L2ZX_sYXdveXgSrDQ
 
 ### Afegir un nou llibre
 POST http://localhost:3000/api/v1/books
